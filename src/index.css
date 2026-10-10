@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 400px;
+  --breakpoint-xsm: 550px;
+}
+
+/* Əsas carusel */
+.custom-swiper-main .swiper-pagination-bullet {
+  width: 70px;
+  height: 10px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid #d1d5db;
+}
+.custom-swiper-main .swiper-pagination-bullet-active {
+  background: #fb923c;
+}
+.custom-swiper-main .swiper-slide img {
+  height: 400px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Sale carusel */
+.custom-swiper-sale .swiper-pagination-bullet {
+  width: 40px;
+  height: 8px;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid #d1d5db;
+}
+.custom-swiper-sale .swiper-pagination-bullet-active {
+  background: #fb923c;
+}
+.custom-swiper-sale .swiper-slide img {
+  height: 200px;
+  object-fit: cover;
+  /* width: 100%; */
+}
+
+.toasty-toast {
+  background: #FFF8EC !important;
+  border: 1px solid #C97C3D;
+  border-radius: 6px 6px 22px 22px;
+  box-shadow: 0 4px 10px rgba(74, 27, 12, 0.12);
+  font-family: system-ui, sans-serif;
+}
+
+.toasty-body {
+  color: #4A1B0C;
+  font-size: 14px;
+}
+
+.Toastify__toast--success { border-color: #639922; background: #EAF3DE !important; }
+.Toastify__toast--error   { border-color: #E24B4A; background: #FCEBEB !important; }
+.Toastify__toast--warning { border-color: #C97C3D; background: #F6C453 !important; }
+.Toastify__toast--info    { border-color: #378ADD; background: #E6F1FB !important; }
+
+.Toastify__progress-bar {
+  background: #C97C3D !important;
+  height: 3px;
+}
