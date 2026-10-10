@@ -6,7 +6,7 @@ import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
 
 function Details() {
   const { id } = useParams();
-  const { products } = useContext(DATA);
+  const { user } = useContext(DATA);
   const {addBasket , incQuantity , decQuantity} = useContext(BASKET)
   const {checkedWislist , wishListOnClickMove } = useContext(WISHLIST)
   useEffect(() => {
@@ -15,7 +15,7 @@ function Details() {
 
   // throw new Error("xeta")
 
-  const product = products.find(
+  const product = user.find(
     (item) => item.id === Number(id),
   );
 
