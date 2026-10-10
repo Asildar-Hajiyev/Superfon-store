@@ -1,4 +1,4 @@
-import {  useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { BASKET, DATA, WISHLIST } from "../Context/Context";
 import { Link, useParams } from "react-router-dom";
 import Detailsimg from "./Details-comp/Detailsimg";
@@ -7,23 +7,23 @@ import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
 function Details() {
   const { id } = useParams();
   const { user } = useContext(DATA);
-  const {addBasket , incQuantity , decQuantity} = useContext(BASKET)
-  const {checkedWislist , wishListOnClickMove } = useContext(WISHLIST)
+  const { sebet, addBasket, incQuantity, decQuantity } = useContext(BASKET);
+  const { checkedWislist, wishListOnClickMove } = useContext(WISHLIST);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  // throw new Error("xeta")
-
-  const product = user.find(
-    (item) => item.id === Number(id),
-  );
+  const product = user.find((item) => item.id === Number(id));
 
   if (!product) {
     return (
       <h2 className="text-center mt-12 font-semibold">Məhsul tapılmadı</h2>
     );
   }
+
+  const basketItem = sebet.find((item) => item.id === product.id);
+  const quantity = basketItem ? basketItem.quantity : 0;
 
   return (
     <>
@@ -74,45 +74,70 @@ function Details() {
             <div className="border-b border-gray-200 pb-5 mb-5">
               <div className="flex flex-col lg:flex-row gap-3">
                 <div className="flex items-center justify-between h-12 w-full lg:w-32 border border-gray-300 rounded-md px-3 order-1 md:order-1">
-                  <button onClick={()=>(decQuantity(product.id))} className="text-xl font-semibold hover:text-green-600 transition cursor-pointer">
+                  <button
+                    onClick={() => decQuantity(product.id)}
+                    className="text-xl font-semibold hover:text-green-600 transition cursor-pointer"
+                  >
                     -
                   </button>
 
-                  <span className="font-semibold text-lg">{product.quantity}</span>
+                  <span className="font-semibold text-lg">{quantity}</span>
 
-                  <button  onClick={()=>incQuantity(product.id)} className="text-xl font-semibold hover:text-green-600 transition cursor-pointer">
+                  <button
+                    onClick={() =>
+                      quantity > 0
+                        ? incQuantity(product.id)
+                        : addBasket(
+                            product.id,
+                            product.image,
+                            product.title,
+                            product.price,
+                          )
+                    }
+                    className="text-xl font-semibold hover:text-green-600 transition cursor-pointer"
+                  >
                     +
                   </button>
                 </div>
 
-                <button onClick={()=>addBasket(product.id,product.image,product.title,product.price)} className="h-12 flex-1 rounded-md bg-green-600 text-white font-medium hover:bg-green-700 transition cursor-pointer order-3 md:order-2">
+                <button
+                  onClick={() =>
+                    addBasket(
+                      product.id,
+                      product.image,
+                      product.title,
+                      product.price,
+                    )
+                  }
+                  className="h-12 flex-1 rounded-md bg-green-600 text-white font-medium hover:bg-green-700 transition cursor-pointer order-3 md:order-2"
+                >
                   Səbətə əlavə et
                 </button>
 
-               <Link
+                <Link
                   to="/login"
                   className="h-12 flex-1 flex items-center justify-center rounded-md bg-orange-500 text-white font-medium hover:bg-orange-600 transition order-4 md:order-3"
                 >
                   İndi al
                 </Link>
 
-              
-
-              <button
-                onClick={() => wishListOnClickMove(product)}
-                className={`h-12 w-full lg:w-12 border border-gray-300 rounded-md flex items-center justify-center hover:bg-gray-100 transition cursor-pointer order-2 md:order-4 ${
-                  checkedWislist(product)
-                    ? "bg-white border-gray-300 text-red-500 border-red-500 scale-105"
-                    : "bg-white border-gray-300 text-gray-500 hover:text-red-500 hover:border-red-500"
-                }`}
-                title="Sevimlilərə əlavə et"
-              >
-                <CiHeart
-                  className={`text-2xl transition ${
-                    checkedWislist(product) ? "text-red-500" : "text-gray-500 hover:text-red-500"
+                <button
+                  onClick={() => wishListOnClickMove(product)}
+                  className={`h-12 w-full lg:w-12 border border-gray-300 rounded-md flex items-center justify-center hover:bg-gray-100 transition cursor-pointer order-2 md:order-4 ${
+                    checkedWislist(product)
+                      ? "bg-white border-gray-300 text-red-500 border-red-500 scale-105"
+                      : "bg-white border-gray-300 text-gray-500 hover:text-red-500 hover:border-red-500"
                   }`}
-                />
-              </button>
+                  title="Sevimlilərə əlavə et"
+                >
+                  <CiHeart
+                    className={`text-2xl transition ${
+                      checkedWislist(product)
+                        ? "text-red-500"
+                        : "text-gray-500 hover:text-red-500"
+                    }`}
+                  />
+                </button>
               </div>
             </div>
 
